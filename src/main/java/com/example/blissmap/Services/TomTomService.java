@@ -28,11 +28,13 @@ public class TomTomService {
     }
 
     public List<SearchResult> searchSpas(double latitude, double longitude, int radius) {
-        String url = TOMTOM_API_BASE_URL + "search/bar.json?" +
+        String category = "9378005";
+        String url = TOMTOM_API_BASE_URL + "search/.json?" +
                 "lat=" + latitude +
                 "&lon=" + longitude +
                 "&radius=" + radius +
-                "&categorySet=7315&view=Unified&relatedPois=off" +
+                "&categorySet=" + category +
+                "&view=Unified&relatedPois=off" +
                 "&key=" + apiKey;
 
         String response = restTemplate.getForObject(url, String.class);
@@ -46,7 +48,6 @@ public class TomTomService {
         try {
             JsonNode root = objectMapper.readTree(response);
 
-            // Assume the spa information is nested under 'results' in the response
             JsonNode resultsNode = root.path("results");
 
             for (JsonNode resultNode : resultsNode) {
@@ -55,8 +56,6 @@ public class TomTomService {
                 searchResult.setAddress(resultNode.path("address").path("freeformAddress").asText());
                 searchResult.setLatitude(resultNode.path("position").path("lat").asText());
                 searchResult.setLongitude(resultNode.path("position").path("lon").asText());
-                //searchResult.setAddress(resultNode.path("address").asText());
-                // Set other spa properties as neededs
                 searchResults.add(searchResult);
             }
 
