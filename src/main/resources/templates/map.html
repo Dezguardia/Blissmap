@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TomTom Mapping Example</title>
+    <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.63.0/maps/maps.css'>
+    <style>
+        #map {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+    <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.63.0/maps/maps-web.min.js'></script>
+</head>
+
+<body>
+<div id='map' class='map'></div>
+
+<script th:inline="javascript">
+    var map = tt.map({
+        key: [['LbsmxPRMYiwFBfmoXbc6zNXloynXv3Zz']],
+        container: 'map',
+        center: [-121.91595, 37.36729],
+        style: 'tomtom://vector/1/basic-main'
+    });
+
+    map.addControl(new tt.FullscreenControl());
+    map.addControl(new tt.NavigationControl());
+    var marker = new tt.Marker().setLngLat([-121.91595, 37.36729]).addTo(map);
+    var popupOffsets = {
+        top: [0, 0],
+        bottom: [0, -70],
+        "bottom-right": [0, -70],
+        "bottom-left": [0, -70],
+        left: [25, -35],
+        right: [-25, -35],
+    }
+    var popup = new tt.Popup({ offset: popupOffsets }).setHTML(
+        "your company name, your company address"
+    )
+    marker.setPopup(popup).togglePopup();
+
+</script>
+</body>
+
+</html>

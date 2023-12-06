@@ -35,19 +35,4 @@ public class SearchController {
 
         return "results";
     }
-    /*
-    @GetMapping("/search")
-    public String searchSpas(Model model) {
-        // Example: Get user's location and set latitude, longitude, and radius
-        double latitude = 49.2472;
-        double longitude = 4.0348;
-        int radius = 10000; // in meters
-
-        List<SearchResult> searchResults = tomTomService.searchSpas(latitude, longitude, radius);
-
-        // Add search results to the model for rendering in the view
-        model.addAttribute("searchResults", searchResults);
-
-        return "results";
-    } */
 }

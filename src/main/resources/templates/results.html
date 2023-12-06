@@ -1,25 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
+    <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.63.0/maps/maps.css'>
+    <style>
+        .container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .results {
+            flex: 30%;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        #map {
+            flex: 70%;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../static/style/style.css">
+    <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.63.0/maps/maps-web.min.js'></script>
 </head>
 <body>
-<h1>Search Results</h1>
+<div class="container">
+    <div class="results">
+        <h1>Search Results</h1>
 
-<ul>
-    <li th:each="result : ${searchResults}">
-        <p th:text="${result.name}"></p>
-        <p th:text="${result.address}"></p>
+        <ul>
+            <li th:each="result : ${searchResults}">
+                <p th:text="${result.name}"></p>
+                <p th:text="${result.address}"></p>
 
-        <p th:text="${result.latitude}"></p>
-        <p th:text="${result.longitude}"></p>
-    </li>
-</ul>
-<form action="/">
-    <button>Back to home page</button>
-</form>
+                <p th:text="${result.latitude}"></p>
+                <p th:text="${result.longitude}"></p>
+            </li>
+        </ul>
+        <form action="/">
+            <button>Back to home page</button>
+        </form>
+
+    </div>
+    <div id='map' class='map'></div>
+</div>
+<script th:inline="javascript">
+    const urlParams = new URLSearchParams(window.location.search);
+    var coordinates = [Number.parseFloat(urlParams.get('longitude')), Number.parseFloat(urlParams.get('latitude'))];
+    console.log(coordinates);
+    var map = tt.map({
+        key: [['LbsmxPRMYiwFBfmoXbc6zNXloynXv3Zz']],
+        container: 'map',
+        center: coordinates,
+        style: 'tomtom://vector/1/basic-main',
+        zoom: 15,
+    });
+
+    map.addControl(new tt.FullscreenControl());
+    map.addControl(new tt.NavigationControl());
+    var marker = new tt.Marker().setLngLat(coordinates).addTo(map);
+    var popupOffsets = {
+        top: [0, 0],
+        bottom: [0, -70],
+        "bottom-right": [0, -70],
+        "bottom-left": [0, -70],
+        left: [25, -35],
+        right: [-25, -35],
+    }
+    var popup = new tt.Popup({ offset: popupOffsets }).setHTML(
+        "Your location"
+    )
+    marker.setPopup(popup).togglePopup();
+
+</script>
 </body>
 </html>
