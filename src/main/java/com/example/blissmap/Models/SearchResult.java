@@ -7,6 +7,8 @@ public class SearchResult {
     private double latitude;
     private double longitude;
 
+    private String type;
+
     public String getName() {
         return name;
     }
@@ -38,4 +40,8 @@ public class SearchResult {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
 }

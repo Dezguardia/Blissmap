@@ -18,6 +18,7 @@
             <li th:each="result : ${searchResults}">
                 <p th:text="${result.name}"></p>
                 <p th:text="${result.address}"></p>
+                <p th:text="${result.type}"></p>
             </li>
         </ul>
         <form action="/">
@@ -62,11 +63,23 @@
     var popup = new tt.Popup({ offset: popupOffsets }).setHTML(
         "Your location"
     )
+    var markerColor;
     marker.setPopup(popup).togglePopup();
     // Crée un marqueur pour chaque résultat de recherche
     searchresults.forEach((result) => {
-        console.log(result.name)
+
         var spaCoordinates = [Number.parseFloat(result.longitude), Number.parseFloat(result.latitude)];
+        // Code pour changer la couleur du marqueur, ne fonctionne pas encore
+        switch (result.type) {
+            case "Park":
+                markerColor = "green";
+                break;
+            case "Spa":
+                markerColor = "blue";
+                break;
+            default:
+                markerColor = "black";
+        }
         var spaMarker = new tt.Marker().setLngLat(spaCoordinates).addTo(map);
         var spaPopup = new tt.Popup({offset: popupOffsets}).setHTML(
             result.name

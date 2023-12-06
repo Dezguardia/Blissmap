@@ -4,6 +4,7 @@ package com.example.blissmap.Services;
 import com.example.blissmap.Models.SearchResult;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -29,8 +30,8 @@ public class TomTomService implements SearchService {
 
     @Override
     public List<SearchResult> searchSpas(double latitude, double longitude, int radius) {
-        // Catégorie des spas
-        String category = "9378005";
+        // Catégorie des spas et des parcs
+        String category = "9378005,9362";
         // L'url, basée sur la page de l'API
         String url = TOMTOM_API_BASE_URL + "search/.json?" +
                 "lat=" + latitude +
@@ -59,6 +60,16 @@ public class TomTomService implements SearchService {
                 searchResult.setAddress(resultNode.path("address").path("freeformAddress").asText());
                 searchResult.setLatitude(resultNode.path("position").path("lat").asDouble());
                 searchResult.setLongitude(resultNode.path("position").path("lon").asDouble());
+                // Cette partie récupère la catégorie et la convertit en fonction de son type
+                ArrayNode categoryArray = (ArrayNode) new ObjectMapper().readTree(resultNode.path("poi").traverse()).get("categorySet");
+                String category = categoryArray.get(0).get("id").asText();
+                String searchCategory;
+                if(category.startsWith("9362")) {
+                    searchCategory = "Park";
+                } else {
+                    searchCategory = "Spa";
+                }
+                searchResult.setType(searchCategory);
                 searchResults.add(searchResult);
             }
 
