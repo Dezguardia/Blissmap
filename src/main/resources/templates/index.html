@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blissmap - Home</title>
     <script>
+        // Récupère la localisation de l'utilisateur
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -12,7 +13,7 @@
                 alert("Geolocation is not supported by this browser.");
             }
         }
-
+        // Insère les coordonnées de l'utilisateur dans les champs de recherche
         function showPosition(position) {
             document.getElementById("latitude").value = position.coords.latitude;
             document.getElementById("longitude").value = position.coords.longitude;
@@ -53,6 +54,7 @@
 <button onclick="getLocation()">Get My Location</button>
 
 <script>
+    // Met à jour le champ indiquant le rayon choisi par l'utilisateur
     function updateSliderValue(value) {
         document.getElementById('sliderValue').innerText = 'Search radius: ' + value + ' m';
     }

@@ -1,7 +1,7 @@
 package com.example.blissmap.Models;
 
 public class SearchResult {
-
+// Le model d'un résultat de recherche, modifiez-le si vous voulez plus d'options affichées
     private String name;
     private String address;
     private String latitude;

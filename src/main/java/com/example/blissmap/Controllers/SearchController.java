@@ -29,10 +29,11 @@ public class SearchController {
                              @RequestParam("longitude") double longitude,
                              @RequestParam("radius") int radius,
                              Model model) {
+        // Cherche les résultats
         List<SearchResult> searchResults = tomTomService.searchSpas(latitude, longitude, radius);
-
+        // Ajoute au model
         model.addAttribute("searchResults", searchResults);
-
+        // Render la view
         return "results";
     }
 }

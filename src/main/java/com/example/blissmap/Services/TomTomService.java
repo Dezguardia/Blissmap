@@ -27,8 +27,13 @@ public class TomTomService {
         this.objectMapper = objectMapper;
     }
 
+    /**
+     * Récupère les spas à partir de l'API TomTom
+     */
     public List<SearchResult> searchSpas(double latitude, double longitude, int radius) {
+        // Catégorie des spas
         String category = "9378005";
+        // L'url, basée sur la page de l'API
         String url = TOMTOM_API_BASE_URL + "search/.json?" +
                 "lat=" + latitude +
                 "&lon=" + longitude +
@@ -49,7 +54,7 @@ public class TomTomService {
             JsonNode root = objectMapper.readTree(response);
 
             JsonNode resultsNode = root.path("results");
-
+            // Crée une instance de SearchResult par résultat retourné par l'API
             for (JsonNode resultNode : resultsNode) {
                 SearchResult searchResult = new SearchResult();
                 searchResult.setName(resultNode.path("poi").path("name").asText());
