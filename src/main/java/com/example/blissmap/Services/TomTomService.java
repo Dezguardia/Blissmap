@@ -1,3 +1,4 @@
+
 package com.example.blissmap.Services;
 
 import com.example.blissmap.Models.SearchResult;
@@ -6,13 +7,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TomTomService {
+public class TomTomService implements SearchService {
 
     @Value("${tomtom.api.key}")
     private String apiKey;
@@ -27,9 +27,7 @@ public class TomTomService {
         this.objectMapper = objectMapper;
     }
 
-    /**
-     * Récupère les spas à partir de l'API TomTom
-     */
+    @Override
     public List<SearchResult> searchSpas(double latitude, double longitude, int radius) {
         // Catégorie des spas
         String category = "9378005";

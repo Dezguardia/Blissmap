@@ -1,6 +1,7 @@
 package com.example.blissmap.Controllers;
 
 import com.example.blissmap.Models.SearchResult;
+import com.example.blissmap.Services.SearchService;
 import com.example.blissmap.Services.TomTomService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +14,10 @@ import java.util.List;
 @Controller
 public class SearchController {
 
-    private final TomTomService tomTomService;
+    private final SearchService searchService;
 
-    public SearchController(TomTomService tomTomService) {
-        this.tomTomService = tomTomService;
+    public SearchController(SearchService searchService) {
+        this.searchService = searchService;
     }
 
     @RequestMapping("/performSearch")
@@ -24,7 +25,7 @@ public class SearchController {
                                    @RequestParam("longitude") double longitude,
                                    @RequestParam("radius") int radius,
                                    Model model) {
-        List<SearchResult> searchResults = tomTomService.searchSpas(latitude, longitude, radius);
+        List<SearchResult> searchResults = searchService.searchSpas(latitude, longitude, radius);
         model.addAttribute("searchResults", searchResults);
         return "results";
     }
