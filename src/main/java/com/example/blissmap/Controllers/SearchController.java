@@ -5,8 +5,8 @@ import com.example.blissmap.Services.TomTomService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -19,21 +19,13 @@ public class SearchController {
         this.tomTomService = tomTomService;
     }
 
-    @GetMapping("/")
-    public String showHomePage() {
-        return "index";
-    }
-
-    @RequestMapping("/search")
+    @RequestMapping("/performSearch")
     public String searchSpasBetter(@RequestParam("latitude") double latitude,
-                             @RequestParam("longitude") double longitude,
-                             @RequestParam("radius") int radius,
-                             Model model) {
-        // Cherche les résultats
+                                   @RequestParam("longitude") double longitude,
+                                   @RequestParam("radius") int radius,
+                                   Model model) {
         List<SearchResult> searchResults = tomTomService.searchSpas(latitude, longitude, radius);
-        // Ajoute au model
         model.addAttribute("searchResults", searchResults);
-        // Render la view
         return "results";
     }
 }
