@@ -6,27 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
     <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.63.0/maps/maps.css'>
-    <style>
-        .container {
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        .results {
-            flex: 30%;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow-x: hidden;
-        }
-
-        #map {
-            flex: 70%;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="../static/style/style.css">
+    <link rel="stylesheet" type="text/css" href="/style/style.css">
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.63.0/maps/maps-web.min.js'></script>
 </head>
 <body>
@@ -38,9 +18,6 @@
             <li th:each="result : ${searchResults}">
                 <p th:text="${result.name}"></p>
                 <p th:text="${result.address}"></p>
-
-                <p th:text="${result.latitude}"></p>
-                <p th:text="${result.longitude}"></p>
             </li>
         </ul>
         <form action="/">

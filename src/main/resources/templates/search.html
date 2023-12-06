@@ -4,38 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blissmap - Home</title>
-  <script>
-    // Récupère la localisation de l'utilisateur
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
-    }
-    // Insère les coordonnées de l'utilisateur dans les champs de recherche
-    function showPosition(position) {
-      document.getElementById("latitude").value = position.coords.latitude;
-      document.getElementById("longitude").value = position.coords.longitude;
-    }
-
-    function showError(error) {
-      switch(error.code) {
-        case error.PERMISSION_DENIED:
-          alert("User denied the request for Geolocation.");
-          break;
-        case error.POSITION_UNAVAILABLE:
-          alert("Location information is unavailable.");
-          break;
-        case error.TIMEOUT:
-          alert("The request to get user location timed out.");
-          break;
-        case error.UNKNOWN_ERROR:
-          alert("An unknown error occurred.");
-          break;
-      }
-    }
-  </script>
+  <script src="/scripts/geolocation.js"></script>
 </head>
 <body>
 <h1>Welcome to Blissmap</h1>
