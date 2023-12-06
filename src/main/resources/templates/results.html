@@ -32,15 +32,15 @@
     /*<![CDATA[*/
 
     var searchresults = [[${searchResults}]];
-
+    var tomtomApiKey = [[${tomtomApiKey}]];
     /*]]>*/
     //Récupération des paramètres get pour la carte
     const urlParams = new URLSearchParams(window.location.search);
     var coordinates = [Number.parseFloat(urlParams.get('longitude')), Number.parseFloat(urlParams.get('latitude'))];
     console.log(coordinates);
-    // Initialisation de la carte, y'a ma clé faut que je la bouge de là
+
     var map = tt.map({
-        key: [['LbsmxPRMYiwFBfmoXbc6zNXloynXv3Zz']],
+        key: tomtomApiKey,
         container: 'map',
         center: coordinates,
         style: 'tomtom://vector/1/basic-main',

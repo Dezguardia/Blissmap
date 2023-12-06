@@ -57,8 +57,8 @@ public class TomTomService implements SearchService {
                 SearchResult searchResult = new SearchResult();
                 searchResult.setName(resultNode.path("poi").path("name").asText());
                 searchResult.setAddress(resultNode.path("address").path("freeformAddress").asText());
-                searchResult.setLatitude(resultNode.path("position").path("lat").asText());
-                searchResult.setLongitude(resultNode.path("position").path("lon").asText());
+                searchResult.setLatitude(resultNode.path("position").path("lat").asDouble());
+                searchResult.setLongitude(resultNode.path("position").path("lon").asDouble());
                 searchResults.add(searchResult);
             }
 
