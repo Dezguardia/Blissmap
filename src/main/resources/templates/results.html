@@ -10,10 +10,15 @@
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.63.0/maps/maps-web.min.js'></script>
 </head>
 <body>
+<nav>
+    <h1>Blissmap</h1>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/search">Search</a></li>
+    </ul>
+</nav>
 <div class="container">
     <div class="results">
-        <h1>Blissmap</h1>
-
         <ul>
             <li th:each="result : ${searchResults}">
                 <p th:text="${result.name}"></p>
@@ -21,9 +26,6 @@
                 <p th:text="${result.type}"></p>
             </li>
         </ul>
-        <form action="/">
-            <button>Back to home page</button>
-        </form>
 
     </div>
     <div id='map' class='map'></div>
